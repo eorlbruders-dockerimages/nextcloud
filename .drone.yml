@@ -1,0 +1,193 @@
+pipeline:
+  docker-archlinux:
+    when:
+      status: [success, failure, changed]
+    image: plugins/docker:1.12
+    repo: registry.eorlbruder.de/archlinux
+    registry: registry.eorlbruder.de
+    tags:
+      - latest
+    dockerfile: ./archlinux/Dockerfile
+    context: ./archlinux
+    secrets: [docker_username, docker_password]
+  docker-supervisord:
+    when:
+      status: [success, failure, changed]
+    image: plugins/docker:1.12
+    repo: registry.eorlbruder.de/supervisord
+    registry: registry.eorlbruder.de
+    tags:
+      - latest
+    dockerfile: ./supervisord/Dockerfile
+    context: ./supervisord
+    secrets: [docker_username, docker_password]
+  docker-simple-http-server:
+    when:
+      status: [success, failure, changed]
+    image: plugins/docker:1.12
+    repo: registry.eorlbruder.de/simple-http-server
+    registry: registry.eorlbruder.de
+    tags:
+      - latest
+    dockerfile: ./simple-http-server/Dockerfile
+    context: ./simple-http-server
+    secrets: [docker_username, docker_password]
+  docker-mpd:
+    when:
+      status: [success, failure, changed]
+    image: plugins/docker:1.12
+    repo: registry.eorlbruder.de/mpd
+    registry: registry.eorlbruder.de
+    tags:
+      - latest
+    dockerfile: ./mpd/Dockerfile
+    context: ./mpd
+    secrets: [docker_username, docker_password]
+  docker-icecast:
+    when:
+      status: [success, failure, changed]
+    image: plugins/docker:1.12
+    repo: registry.eorlbruder.de/icecast
+    registry: registry.eorlbruder.de
+    tags:
+      - latest
+    dockerfile: ./icecast/Dockerfile
+    context: ./icecast
+    secrets: [docker_username, docker_password]
+  docker-etherpad:
+    when:
+      status: [success, failure, changed]
+    image: plugins/docker:1.12
+    repo: registry.eorlbruder.de/etherpad
+    registry: registry.eorlbruder.de
+    tags:
+      - latest
+    dockerfile: ./etherpad/Dockerfile
+    context: ./etherpad
+    secrets: [docker_username, docker_password]
+  docker-cron:
+    when:
+      status: [success, failure, changed]
+    image: plugins/docker:1.12
+    repo: registry.eorlbruder.de/cron
+    registry: registry.eorlbruder.de
+    tags:
+      - latest
+    dockerfile: ./cron/Dockerfile
+    context: ./cron
+    secrets: [docker_username, docker_password]
+  docker-nsupdate:
+    when:
+      status: [success, failure, changed]
+    image: plugins/docker:1.12
+    repo: registry.eorlbruder.de/nsupdate
+    registry: registry.eorlbruder.de
+    tags:
+      - latest
+    dockerfile: ./nsupdate/Dockerfile
+    context: ./nsupdate
+    secrets: [docker_username, docker_password]
+  docker-gunicorn:
+    when:
+      status: [success, failure, changed]
+    image: plugins/docker:1.12
+    repo: registry.eorlbruder.de/gunicorn
+    registry: registry.eorlbruder.de
+    tags:
+      - latest
+    dockerfile: ./gunicorn/Dockerfile
+    context: ./gunicorn
+    secrets: [docker_username, docker_password]
+  docker-nginx:
+    when:
+      status: [success, failure, changed]
+    image: plugins/docker:1.12
+    repo: registry.eorlbruder.de/nginx
+    registry: registry.eorlbruder.de
+    tags:
+      - latest
+    dockerfile: ./nginx/Dockerfile
+    context: ./nginx
+    secrets: [docker_username, docker_password]
+  docker-nginx-php:
+    when:
+      status: [success, failure, changed]
+    image: plugins/docker:1.12
+    repo: registry.eorlbruder.de/nginx-php
+    registry: registry.eorlbruder.de
+    tags:
+      - latest
+    dockerfile: ./nginx-php/Dockerfile
+    context: ./nginx-php
+    secrets: [docker_username, docker_password]
+  docker-nextcloud:
+    when:
+      status: [success, failure, changed]
+    image: plugins/docker:1.12
+    repo: registry.eorlbruder.de/nextcloud
+    registry: registry.eorlbruder.de
+    tags:
+      - latest
+    dockerfile: ./nextcloud/Dockerfile
+    context: ./nextcloud
+    secrets: [docker_username, docker_password]
+  docker-lychee:
+    when:
+      status: [success, failure, changed]
+    image: plugins/docker:1.12
+    repo: registry.eorlbruder.de/lychee
+    registry: registry.eorlbruder.de
+    tags:
+      - latest
+    dockerfile: ./lychee/Dockerfile
+    context: ./lychee
+    secrets: [docker_username, docker_password]
+  docker-freshrss:
+    when:
+      status: [success, failure, changed]
+    image: plugins/docker:1.12
+    repo: registry.eorlbruder.de/freshrss
+    registry: registry.eorlbruder.de
+    tags:
+      - latest
+    dockerfile: ./freshrss/Dockerfile
+    context: ./freshrss
+    secrets: [docker_username, docker_password]
+  docker-concat-pure-ftpd-certs:
+    when:
+      status: [success, failure, changed]
+    image: plugins/docker:1.12
+    repo: registry.eorlbruder.de/concat-pure-ftpd-certs
+    registry: registry.eorlbruder.de
+    tags:
+      - latest
+    dockerfile: ./concat-pure-ftpd-certs/Dockerfile
+    context: ./concat-pure-ftpd-certs
+    secrets: [docker_username, docker_password]
+  docker-explode-acme-json:
+    when:
+      status: [success, failure, changed]
+    image: plugins/docker:1.12
+    repo: registry.eorlbruder.de/explode-acme-json
+    registry: registry.eorlbruder.de
+    tags:
+      - latest
+    dockerfile: ./explode-acme-json/Dockerfile
+    context: ./explode-acme-json
+    secrets: [docker_username, docker_password]
+  notify:
+    image: drillster/drone-email
+    when:
+      branch: master
+      status: [success, failure, changed]
+    secrets:
+      - source: email_host
+        target: email_host
+      - source: email_password
+        target: email_password
+      - source: email
+        target: plugin_from
+      - source: email
+        target: email_username
+      - source: email
+        target: email_recipients
