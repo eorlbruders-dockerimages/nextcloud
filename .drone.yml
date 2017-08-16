@@ -1,28 +1,30 @@
 pipeline:
   docker-nextcloud:
-    when:
-      status: [success, failure, changed]
-    image: plugins/docker:1.12
-    repo: registry.eorlbruder.de/nextcloud
-    registry: registry.eorlbruder.de
-    tags:
-      - latest
-    dockerfile: ./Dockerfile
     context: .
-    secrets: [docker_username, docker_password]
+    dockerfile: ./Dockerfile
+    image: plugins/docker:1.12
+    registry: registry.eorlbruder.de
+    repo: registry.eorlbruder.de/nextcloud
+    secrets:
+    - docker_username
+    - docker_password
+    tags:
+    - latest
   notify:
     image: drillster/drone-email
+    secrets:
+    - source: email_host
+      target: email_host
+    - source: email_password
+      target: email_password
+    - source: email
+      target: plugin_from
+    - source: email
+      target: email_username
+    - source: email
+      target: email_recipients
     when:
       branch: master
-      status: [success, failure, changed]
-    secrets:
-      - source: email_host
-        target: email_host
-      - source: email_password
-        target: email_password
-      - source: email
-        target: plugin_from
-      - source: email
-        target: email_username
-      - source: email
-        target: email_recipients
+      status:
+      - failure
+      - changed
