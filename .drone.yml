@@ -7,8 +7,8 @@ pipeline:
     registry: registry.eorlbruder.de
     tags:
       - latest
-    dockerfile: ./nextcloud/Dockerfile
-    context: ./nextcloud
+    dockerfile: ./Dockerfile
+    context: .
     secrets: [docker_username, docker_password]
   notify:
     image: drillster/drone-email
